@@ -1,5 +1,16 @@
-import "./singleton/module_a";
-import "./singleton/module_b";
-import "./singleton/module_c";
+import { MainDishBuilder } from "./builder/classes/main-dish-builder";
+import { VeganDishBuilder } from "./builder/classes/vegan-dish-builder";
 
-export {};
+const mainDishBuilder = new MainDishBuilder();
+mainDishBuilder.makeMeal();
+console.log(mainDishBuilder.getMeal());
+console.log(mainDishBuilder.getPrice());
+
+mainDishBuilder.reset();
+const meal2 = mainDishBuilder.makeBeverage().getMeal();
+console.log(meal2);
+
+const veganDishBuilder = new VeganDishBuilder();
+const veganMeal = veganDishBuilder.makeMeal().getMeal();
+console.log(veganMeal);
+console.log(veganMeal.getPrice());
