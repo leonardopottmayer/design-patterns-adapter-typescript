@@ -1,16 +1,37 @@
-import { MainDishBuilder } from "./builder/classes/main-dish-builder";
-import { VeganDishBuilder } from "./builder/classes/vegan-dish-builder";
+import { EmailValidatorClassAdapter } from "./adapter/validation/email-validator-class-adapter";
+import { emailValidatorFnAdapter } from "./adapter/validation/email-validator-fn-adapter";
+import {
+  EmailValidatorFnProtocol,
+  EmailValidatorProtocol,
+} from "./adapter/validation/email-validator-protocol";
 
-const mainDishBuilder = new MainDishBuilder();
-mainDishBuilder.makeMeal();
-console.log(mainDishBuilder.getMeal());
-console.log(mainDishBuilder.getPrice());
+function validaEmailClass(
+  emailValidator: EmailValidatorProtocol,
+  email: string
+): void {
+  if (emailValidator.isEmail(email)) {
+    console.log("Valid email.");
+  } else {
+    console.log("Invalid email.");
+  }
+}
 
-mainDishBuilder.reset();
-const meal2 = mainDishBuilder.makeBeverage().getMeal();
-console.log(meal2);
+validaEmailClass(
+  new EmailValidatorClassAdapter(),
+  "leonardo.pottmayer@gmail.com"
+);
 
-const veganDishBuilder = new VeganDishBuilder();
-const veganMeal = veganDishBuilder.makeMeal().getMeal();
-console.log(veganMeal);
-console.log(veganMeal.getPrice());
+// -------------------------
+
+function validaEmailFn(
+  emailValidator: EmailValidatorFnProtocol,
+  email: string
+): void {
+  if (emailValidatorFnAdapter(email)) {
+    console.log("Valid email.");
+  } else {
+    console.log("Invalid email.");
+  }
+}
+
+validaEmailFn(emailValidatorFnAdapter, "leonardo.pottmayer@gmail.com");
